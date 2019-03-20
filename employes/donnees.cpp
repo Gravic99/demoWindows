@@ -68,6 +68,20 @@ Employe Donnees::ChercherEmployeSelonNumero(string inNumero)
 Tache Donnees::ChercherTacheParIdentifiant(string inId)
 {
 	Tache tacheTrouve;
+	int cpt = 0;
+	bool trouve = false;
+	while (cpt < maxTaches && trouve == false)
+	{
+		if (lesTaches[cpt]->getIdentifiant() == inId)
+		{
+			trouve = true;
+			tacheTrouve = *lesTaches[cpt];
+		}
+		else
+		{
+			cpt++;
+		}
 
+	}
 	return tacheTrouve;
 }
