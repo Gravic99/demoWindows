@@ -48,12 +48,16 @@ bool Donnees::AjouterTache(Tache inTache)
 {
 	int cpt = 0;
 	bool ajoutReussi = false;
-	while (cpt<=maxTaches&& ajoutReussi==false)
+	while (cpt<maxTaches && ajoutReussi==false)
 	{
 		if (lesTaches[cpt] == NULL)
 		{
-			*lesTaches[cpt] = inTache;
+			lesTaches[cpt] = new Tache (inTache);
 			ajoutReussi = true;
+		}
+		else
+		{
+			cpt++;
 		}
 		
 	}
@@ -72,7 +76,7 @@ Tache Donnees::ChercherTacheParIdentifiant(string inId)
 	bool trouve = false;
 	while (cpt < maxTaches && trouve == false)
 	{
-		if (lesTaches[cpt]->getIdentifiant() == inId)
+		if (lesTaches[cpt]!=NULL && lesTaches[cpt]->getIdentifiant() == inId)
 		{
 			trouve = true;
 			tacheTrouve = *lesTaches[cpt];

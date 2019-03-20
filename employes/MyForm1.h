@@ -382,10 +382,12 @@ namespace employes {
 
 	private: System::Void btnAjouterTache_Click(System::Object^  sender, System::EventArgs^  e) {
 		Tache tacheCourante;
-		tacheCourante.setEtat = (msclr::interop::marshal_as<std::string>(txtEtat->Text));
-		tacheCourante.setIdentifiant = (msclr::interop::marshal_as<std::string>(txtIdentifiant->Text));
-		tacheCourante.setTitre = (msclr::interop::marshal_as<std::string>(txtTitre->Text));
-		tacheCourante.initialiserDuree(msclr::interop::marshal_as<std::int32_t>(txtDuree->Text), (msclr::interop::marshal_as<std::string>(txtMesure->Text)));
+		tacheCourante.setEtat((msclr::interop::marshal_as<std::string>(txtEtat->Text)));
+		tacheCourante.setIdentifiant((msclr::interop::marshal_as<std::string>(txtIdentifiant->Text)));
+		tacheCourante.setTitre((msclr::interop::marshal_as<std::string>(txtTitre->Text)));
+
+		tacheCourante.initialiserDuree(Convert::ToInt32(txtDuree->Text), (msclr::interop::marshal_as<std::string>(txtMesure->Text)));
+		lesDonneesDuProgramme.AjouterTache(tacheCourante);
 		ViderZonesTexteTache();
 	}
 			 
@@ -400,6 +402,15 @@ namespace employes {
 	}
 
 	private: System::Void btnRechercherTache_Click(System::Object^  sender, System::EventArgs^  e) {
+
+		Tache tacheVoulue = lesDonneesDuProgramme.ChercherTacheParIdentifiant(msclr::interop::marshal_as<std::string>(txtIdentifiant->Text));
+		txtTitre->Text = gcnew String(tacheVoulue.getTitre().c_str());
+		txtEtat->Text = gcnew String(tacheVoulue.getEtatAvancement().c_str());
+		int duree = tacheVoulue.getDuree();
+		txtDuree->Text = duree.ToString();
+		txtMesure->Text =gcnew String(tacheVoulue.getUniteMesure().c_str());
+		
+
 	}
 
 };
